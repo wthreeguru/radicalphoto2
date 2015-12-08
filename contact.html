@@ -12,10 +12,10 @@
 		<li><a href="index.html">Home</a></li>
 		<li><a href="gallery.html">Gallery</a></li>
 		<li><a href="about.html">About</a></li>
-		<li><a href="contact.html">Contact</a>
+		<li><a href="contact.html">Contact</a></li>
 	</ul>
 
-	<h1>RadicalPhoto</h1>
+	<h1>RadicalPhoto2</h1>
 
 </div>
 
@@ -26,14 +26,14 @@
 
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
 
-	<form action="http://derekallard.com/echo.php" method="post" id="myform">
+	<form action="http://derekallard.com/echo.php" method="post" id="frm_contact">
 
-		<p class="errors">All fields are required.</p>
+		<p id="error_header"></p>
 
-		<p><label>Name: <input type="text" size="25" name="name" id="username"></label></p>
-		<p><label>Email: <input type="text" size="25" name="email" id="email"></label></p>
-		<p><label>Message:<br> <textarea cols="50" rows="5" name="message" id="my_message"></textarea></label></p>
-		<p><input type="submit" value="Contact Us"></p>
+		<p><label>Name: </label><input type="text" size="25" name="name" id="frm_username"><label id="error_username"></label></p>
+		<p><label>Email: </label><input type="text" size="25" name="email" id="frm_email"><label id="error_email"></label></p>
+		<p><label>Message:</label><br> <textarea cols="50" rows="5" name="message" id="frm_my_message"></textarea><label id="error_my_message"></label></p>
+		<p><input type="submit" value="Contact Us">&nbsp;<button type="reset"> Reset </button></p>
 	</form>
 
 	</div>
@@ -43,6 +43,73 @@
 	</div>
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+// Harvest the variables
+$(document).ready(function() {
+	var frm_contact = $('#frm_contact');	// name of form
+	var frm_username = $('#frm_username');
+	var frm_email = $('#frm_email');
+	var frm_my_message = $('#frm_my_message');
+	var error_username = $('#error_username');	// error messages
+	var error_email = $('#error_email');
+	var error_my_message = $('#error_my_message');
+	var error_header = $('#error_header');	
+
+
+frm_contact.submit(function(frm){	
+	var errors = 0;
+
+	if ($("#frm_username").val() == ""){
+		error_username.text(" * Name");
+		error_username.css('color', '#A20D10');
+		frm_username.css('border', '1px dotted #C00');
+		frm_username.css('box-shadow', '0 0 5px #c00');
+		errors++; 	
+	} else {
+		frm_username.css('border', '1px solid #99ff00');
+		frm_username.css('box-shadow', '0 0 5px #00ff66');
+		error_username.text("");
+	}
+	
+	if ($("#frm_email").val() == ""){
+		error_email.text(" * Email");
+		error_email.css('color', '#A20D10');
+		frm_email.css('border', '1px dotted #C00');
+		frm_email.css('box-shadow', '0 0 5px #c00');
+		errors++;  
+	} else {
+		frm_email.css('border', '1px solid #99ff00');
+		frm_email.css('box-shadow', '0 0 5px #00ff66');
+		error_email.text("");
+	}
+	
+	if ($("#frm_my_message").val() == ""){
+		error_my_message.text(" * Message");
+		error_my_message.css('color', '#A20D10');
+		frm_my_message.css('border', '1px dotted #C00');
+		frm_my_message.css('box-shadow', '0 0 5px #c00');
+		errors++;  	
+	} else {
+		frm_my_message.css('border', '1px solid #99ff00');
+		frm_my_message.css('box-shadow', '0 0 5px #00ff66');
+		error_my_message.text("");
+	}
+	
+	if (errors > 0){
+		// Form Stops Submitting
+		error_header.text("All fields are required");
+		error_header.css('color', '#A20D10');
+		frm.preventDefault(); // stop form submission
+	} else {
+		error_header.text("");
+		}
+	});
+});
+
+</script>
+
 
 </body>
 </html>
